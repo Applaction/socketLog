@@ -7,10 +7,15 @@ SocketLog适合Ajax调试和API调试， 举一个常见的场景，用SocketLog
 
 
  *   正在运行的API有bug，不能var_dump进行调试，因为会影响client的调用。 将日志写到文件，查看也不方便，特别是带调用栈或大数据结构的文件日志，查看日志十分困难。 这时候用SocketLog最好，SocketLog通过websocket将调试日志打印到浏览器的console中。你还可以用它来分析开源程序，分析SQL性能，结合taint分析程序漏洞。
- * Chrome插件安装： https://chrome.google.com/webstore/detail/socketlog/apkmbfpihjhongonfcgdagliaglghcod （如果不能正常访问这个页面，你可以用下面手动安装的方法进行安装）
+ * 1、 Chrome插件安装： https://chrome.google.com/webstore/detail/socketlog/apkmbfpihjhongonfcgdagliaglghcod （如果不能正常访问这个页面，你可以用下面手动安装的方法进行安装）
  * 目录结构：
  * chrome 目录是 chrome插件的源代码
- * chrome.crx 文件是chrome插件的安装包， 如果你无法从chrome应用商店安装，可进行手动安装， 浏览器地址栏输入并打开： chrome://extensions/  ，然后将chrome.crx拖入即可安装。
+ * 2、chrome.crx 文件是chrome插件的安装包， 如果你无法从chrome应用商店安装，可进行手动安装，在网络上下载对应的应用扩展后， 浏览器地址栏输入并打开： chrome://extensions/  ，然后将chrome.crx拖入即可安装。
+ * 3、chrom该插件你要是装不上的话，因为访问不了google很正常，还可以采用以下方式安装。
+ * 打开 http://chrom-extension-downloader.com/
+ * 然后复制该扩张的应用id，扩展的应用id在网络上可以找到的，那么socketLog扩展应用id是：
+ * apkmbfgihjhongonfcgdagliaglghcod
+ * 复制该id,到打开的那个页面中，进行下载。这样你的该扩展就下载完毕了。
  * php 目录下的SocketLog.class.php是发送日志的类库,我们在发送日志的时候，需要载入这个类库然后调用函数slog即可。
  * 效果展示： 我们在浏览网站的时候在浏览器console中就知道程序做了什么，这对于二次开发产品十分有用。 下面效果图在console中打印出浏览discuz程序时，执行了哪些sql语句， 以及执行sql语句的调用栈。程序的warning，notice等错误信息也可以打到console中。
 ![enter image description here][1]
@@ -164,9 +169,6 @@ SocketLog适合Ajax调试和API调试， 举一个常见的场景，用SocketLog
 
 -  提示：另一种更简单的方法，因为OneThink每次执行完sql语句都会调用$this->debug， 所以我们可以把slog($this->queryStr,$this->_linkID); 直接写在 Db.class.php文件的debug方法中。 这样不管是mysqli还是mysql驱动都有效。
 
-##About Me
-* Author: @luofei614 新浪微博：http://weibo.com/luofei614
-* 三生社群CTO，ThinkPHP核心开发者之一，待过新浪云计算
 
 
   [1]: https://github.com/luofei614/SocketLog/raw/master/screenshots/discuz.png
