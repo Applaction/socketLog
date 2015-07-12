@@ -2,8 +2,9 @@
 #说明
 
 SocketLog适合Ajax调试和API调试， 举一个常见的场景，用SocketLog来做微信调试， 我们在做微信API开发的时候，如果API有bug，微信只提示“改公众账号暂时无法提供服务，请稍候再试” ，我们根本不知道API出来什么问题。 有了SocketLog就不一样了， 我们可以知道微信给API传递了哪些参数， 程序有错误我们也能看见错误信息。 
+
 ![微信调试](http://7xiuw8.com1.z0.glb.clouddn.com/20150712103927_2015-07-12 10:31:14 的屏幕截图.png)
-(http://7xiuw8.com1.z0.glb.clouddn.com/20150712103927_2015-07-12 10:32:48 的屏幕截图.png)
+![微信调试](http://7xiuw8.com1.z0.glb.clouddn.com/20150712103927_2015-07-12 10:32:48 的屏幕截图.png)
 
 
  *   正在运行的API有bug，不能var_dump进行调试，因为会影响client的调用。 将日志写到文件，查看也不方便，特别是带调用栈或大数据结构的文件日志，查看日志十分困难。 这时候用SocketLog最好，SocketLog通过websocket将调试日志打印到浏览器的console中。你还可以用它来分析开源程序，分析SQL性能，结合taint分析程序漏洞。
@@ -18,7 +19,7 @@ SocketLog适合Ajax调试和API调试， 举一个常见的场景，用SocketLog
  * 复制该id,到打开的那个页面中，进行下载。这样你的该扩展就下载完毕了。
  * php 目录下的SocketLog.class.php是发送日志的类库,我们在发送日志的时候，需要载入这个类库然后调用函数slog即可。
  * 效果展示： 我们在浏览网站的时候在浏览器console中就知道程序做了什么，这对于二次开发产品十分有用。 下面效果图在console中打印出浏览discuz程序时，执行了哪些sql语句， 以及执行sql语句的调用栈。程序的warning，notice等错误信息也可以打到console中。
-(http://7xiuw8.com1.z0.glb.clouddn.com/20150712103927_2015-07-12 10:34:50 的屏幕截图.png)
+![微信调试](http://7xiuw8.com1.z0.glb.clouddn.com/20150712103927_2015-07-12 10:34:50 的屏幕截图.png)
 
 #使用方法
  * 首先，请在chrome浏览器上安装好插件。
@@ -79,7 +80,7 @@ SocketLog适合Ajax调试和API调试， 举一个常见的场景，用SocketLog
 * show_included_files 设置为true，能显示出程序运行时加载了哪些文件，比如我们在分析开源程序时，如果不知道模板文件在那里， 往往看一下加载文件列表就知道模板文件在哪里了。
 * error_handler 设置为true，能接管报错，将错误信息显示到浏览器console， 在开发程序时notice报错能让我们快速发现bug，但是有些notice报错是不可避免的，如果让他们显示在页面中会影响网页的正常布局，那么就设置error_handler,让它显示在浏览器console中吧。  另外此功能结合php taint也是极佳的。 taint能自动检测出xss，sql注入， 如果只用php taint， 它warning报错只告诉了变量输出的地方，并不知道变量在那里赋值、怎么传递。通过SocketLog， 能看到调用栈，轻松对有问题变量进行跟踪。 更多taint的信息：http://www.laruence.com/2012/02/14/2544.html 
 * 设置client_id:  在chrome浏览器中，可以设置插件的Client_ID ，Client_ID是你任意指定的字符串。
-(http://7xiuw8.com1.z0.glb.clouddn.com/20150712103927_2015-07-12 10:35:50 的屏幕截图.png)
+![微信调试](http://7xiuw8.com1.z0.glb.clouddn.com/20150712103927_2015-07-12 10:35:50 的屏幕截图.png)
 * 设置client_id后能实现以下功能：
 
 * 1，配置allow_client_ids 配置项，让指定的浏览器才能获得日志，这样就可以把调试代码带上线。  普通用户访问不会触发调试，不会发送日志。  开发人员访问就能看的调试日志， 这样利于找线上bug。 Client_ID 建议设置为姓名拼命加上随机字符串，这样如果有员工离职可以将其对应的client_id从配置项allow_client_ids中移除。 client_id除了姓名拼音，加上随机字符串的目的，以防别人根据你公司员工姓名猜测出client_id,获取线上的调试日志。
@@ -102,7 +103,7 @@ SocketLog适合Ajax调试和API调试， 举一个常见的场景，用SocketLog
 
 ##对数据库进行调试
   * SocketLog还能对sql语句进行调试，自动对sql语句进行explain分析，显示出有性能问题的sql语句。 如下图所示。 
-  (https://github.com/luofei614/SocketLog/raw/master/screenshots/sql.png)
+  ![微信调试](https://github.com/luofei614/SocketLog/raw/master/screenshots/sql.png)
   * 图中显示出了三条sql语句 ， 第一条sql语句字体较大，是因为它又性能问题， 在sql语句的后台已经标注Using filesort。 我们还可以点击某个sql语句看到sql执行的调用栈，清楚的知道sql语句是如何被执行的，方便我们分析程序、方便做开源程序的二次开发。图中第三条sql语句为被点开的状态。
   * 用slog函数打印sql语句是，第二个参数传递为mysql或mysqli的对象即可。 示例代码：
   
@@ -165,7 +166,7 @@ SocketLog适合Ajax调试和API调试， 举一个常见的场景，用SocketLog
  
  -  然后浏览网站看看效果： 
 
-(https://github.com/luofei614/SocketLog/raw/master/screenshots/onethink.png)
+![微信调试](https://github.com/luofei614/SocketLog/raw/master/screenshots/onethink.png)
  
 通过console的日志，访问每一页我们都知道程序干了什么，是一件很爽的事情。
 
